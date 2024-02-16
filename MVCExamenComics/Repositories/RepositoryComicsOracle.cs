@@ -95,6 +95,11 @@ namespace MVCExamenComics.Repositories
             this.command.Parameters.Clear();
         }
 
+        public void InsertComicLambda(string nombre, string imagen, string descripcion)
+        {
+
+        }
+
         public void DeleteComic(int idComic)
         {
             OracleParameter pamidComic = new OracleParameter(":p_idComic", idComic);

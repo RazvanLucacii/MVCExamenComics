@@ -81,6 +81,13 @@ namespace MVCExamenComics.Repositories
             this.command.Parameters.Clear();
         }
 
+        public void InsertComicLambda(int idComic, string nombre, string imagen, string descripcion)
+        {
+            var consulta = from datos in this.tablaComics.AsEnumerable()
+                           where datos.Field<int>("IDCOMIC") == idComic
+                           select datos;
+        }
+
         public void DeleteComic(int idComic)
         {
             string sql = "DELETE FROM COMICS WHERE IDCOMIC = @idComic";

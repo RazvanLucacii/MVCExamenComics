@@ -7,6 +7,7 @@ namespace MVCExamenComics.Repositories
         List<Comic> Getcomics();
 
         void InsertComicProcedure(string nombre, string imagen, string descripcion);
+        void InsertComicLambda(int idComic, string nombre, string imagen, string descripcion);
 
         void DeleteComic(int idComic);
 
@@ -15,5 +16,6 @@ namespace MVCExamenComics.Repositories
         List<string> GetComicsNombre();
 
         Comic FindComicDetalle(string nombre);
+
     }
 }
