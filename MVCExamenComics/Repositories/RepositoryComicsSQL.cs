@@ -1,6 +1,19 @@
-﻿using MVCExamenComics.Models;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using MVCExamenComics.Models;
 using System.Data;
 using System.Data.SqlClient;
+
+#region PROCEDIMIENTOS ALMACENADOS
+
+//create procedure SP_INSERT_COMIC
+//(@NOMBRE NVARCHAR(100), @IMAGEN NVARCHAR(100), @DESCRIPCION NVARCHAR(100))
+//as
+//	DECLARE @NEXTID INT
+//	SELECT @NEXTID = MAX(IDCOMIC) +1 FROM COMICS
+//	INSERT INTO COMICS VALUES (@NEXTID, @NOMBRE, @IMAGEN, @DESCRIPCION)
+//go
+
+#endregion
 
 namespace MVCExamenComics.Repositories
 {
@@ -55,15 +68,13 @@ namespace MVCExamenComics.Repositories
             return comic;
         }
 
-        public void InsertComic(int idComic, string nombre, string imagen, string descripcion)
+        public void InsertComicProcedure(string nombre, string imagen, string descripcion)
         {
-            string sql = "insert into COMICS values (@idComic, @nombre, @imagen, @descripcion)";
-            this.command.Parameters.AddWithValue("@idComic", idComic);
-            this.command.Parameters.AddWithValue("@nombre", nombre);
-            this.command.Parameters.AddWithValue("@imagen", imagen);
-            this.command.Parameters.AddWithValue("@descripcion", descripcion);
-            this.command.CommandText = sql;
-            this.command.CommandType = CommandType.Text;
+            this.command.Parameters.AddWithValue("@NOMBRE", nombre);
+            this.command.Parameters.AddWithValue("@IMAGEN", imagen);
+            this.command.Parameters.AddWithValue("@DESCRIPCION", descripcion);
+            this.command.CommandText = "SP_INSERT_COMIC";
+            this.command.CommandType = CommandType.StoredProcedure;
             this.connection.Open();
             int af = this.command.ExecuteNonQuery();
             this.connection.Close();

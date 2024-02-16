@@ -1,16 +1,19 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using MVCExamenComics.Models;
 using Oracle.ManagedDataAccess.Client;
+using System.Collections.Generic;
 using System.Data;
 
 #region PROCEDIMIENTOS ALMACENADOS
 
 //INSERTAR COMIC
 //create or replace procedure SP_INSERT_COMIC
-//(p_idComic COMICS.IDCOMIC%TYPE, p_nombre COMICS.NOMBRE%TYPE, p_imagen COMICS.IMAGEN%TYPE, p_decripcion COMICS.DESCRIPCION%TYPE)
+//  (p_nombre COMICS.NOMBRE%TYPE, p_imagen COMICS.IMAGEN%TYPE, p_decripcion COMICS.DESCRIPCION%TYPE)
 //AS
+//  p_nextid COMICS.IDCOMIC%TYPE;
 //BEGIN
-//  insert into COMICS values(p_idComic, p_nombre, p_imagen, p_decripcion);
+//  SELECT Max(IDCOMIC) + 1 INTO p_nextid from COMICS;
+//insert into COMICS values(p_nextid, p_nombre, p_imagen, p_decripcion);
 //commit;
 //END;
 
@@ -76,18 +79,15 @@ namespace MVCExamenComics.Repositories
             return comic;
         }
 
-        public void InsertComic(int idComic, string nombre, string imagen, string descripcion)
+        public void InsertComicProcedure(string nombre, string imagen, string descripcion)
         {
-            string sql = "insert into COMICS values (p_idComic, p_nombre, p_imagen, p_descripcion)";
-            OracleParameter pamIdComic = new OracleParameter(":p_idComic", idComic);
-            this.command.Parameters.Add(pamIdComic);
             OracleParameter pamNombre = new OracleParameter(":p_nombre", nombre);
             this.command.Parameters.Add(pamNombre);
             OracleParameter pamImagen = new OracleParameter(":p_imagen", imagen);
             this.command.Parameters.Add(pamImagen);
             OracleParameter pamDescripcion = new OracleParameter(":p_descripcion", descripcion);
             this.command.Parameters.Add(pamDescripcion);
-            this.command.CommandText = sql;
+            this.command.CommandText = "SP_INSERT_COMIC";
             this.command.CommandType = CommandType.Text;
             this.connection.Open();
             int af = this.command.ExecuteNonQuery();

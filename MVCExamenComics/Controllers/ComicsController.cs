@@ -30,7 +30,7 @@ namespace MVCExamenComics.Controllers
         [HttpPost]
         public IActionResult Create(Comic comic)
         {
-            this.repoComic.InsertComic(comic.IdComic, comic.Nombre, comic.Imagen, comic.Descripcion);
+            this.repoComic.InsertComicProcedure(comic.Nombre, comic.Imagen, comic.Descripcion);
             return RedirectToAction("Index");
         }
 

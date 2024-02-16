@@ -6,7 +6,7 @@ namespace MVCExamenComics.Repositories
     {
         List<Comic> Getcomics();
 
-        void InsertComic(int idComic, string nombre, string imagen, string descripcion);
+        void InsertComicProcedure(string nombre, string imagen, string descripcion);
 
         void DeleteComic(int idComic);
 
