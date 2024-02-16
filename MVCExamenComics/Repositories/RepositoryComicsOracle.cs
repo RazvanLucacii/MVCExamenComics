@@ -88,7 +88,7 @@ namespace MVCExamenComics.Repositories
             OracleParameter pamDescripcion = new OracleParameter(":p_descripcion", descripcion);
             this.command.Parameters.Add(pamDescripcion);
             this.command.CommandText = "SP_INSERT_COMIC";
-            this.command.CommandType = CommandType.Text;
+            this.command.CommandType = CommandType.StoredProcedure;
             this.connection.Open();
             int af = this.command.ExecuteNonQuery();
             this.connection.Close();
